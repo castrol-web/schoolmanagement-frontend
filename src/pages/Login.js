@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,11 @@ import { URL } from '../App';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // <-- Loading state
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true); // Show loading
     try {
       const response = await axios.post(`${URL}/api/users/login`, { email, password });
       const token = response.data.token;
@@ -34,12 +36,10 @@ const Login = () => {
         toast.error('Login failed, no token received');
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error('Error logging in, please check your credentials');
-      }
+      toast.error(error.response?.data?.message || 'An error occurred. Please try again.');
       console.error('Error logging in:', error);
+    } finally {
+      setLoading(false); // Hide loading
     }
   };
 
@@ -52,13 +52,8 @@ const Login = () => {
     <>
       <ToastContainer />
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
-        <animated.div
-          style={fadeIn}
-          className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg"
-        >
-          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-            Welcome Back!
-          </h1>
+        <animated.div style={fadeIn} className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Welcome Back!</h1>
           <form className="space-y-4">
             <div className="form-control w-full">
               <label className="label">
@@ -70,6 +65,7 @@ const Login = () => {
                 className="input input-bordered w-full"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={loading} // Disable input while loading
               />
             </div>
             <div className="form-control w-full">
@@ -82,21 +78,25 @@ const Login = () => {
                 className="input input-bordered w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={loading} // Disable input while loading
               />
             </div>
             <button
               type="button"
               onClick={handleLogin}
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full flex items-center justify-center"
+              disabled={loading} // Disable button while loading
             >
-              Login
+              {loading ? (
+                <span className="loading loading-spinner"></span> // Show spinner
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
           <p className="text-sm text-center text-gray-500 mt-4">
             Forgot Password?{' '}
-            <a href="/reset" className="text-blue-600 underline">
-              Reset here
-            </a>
+            <a href="/reset" className="text-blue-600 underline">Reset here</a>
           </p>
         </animated.div>
       </div>

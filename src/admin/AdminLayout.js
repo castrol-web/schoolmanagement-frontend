@@ -39,7 +39,8 @@ const AdminLayout = () => {
     { name: 'parents', icon: <FaChalkboardTeacher className="mr-3" /> },
     { name: 'subjects', icon: <FaBook className="mr-3" /> },
     { name: 'classes', icon: <FaUsers className="mr-3" /> },
-    { name: 'invoices', icon: <FaUsers className="mr-3" /> },
+    { name: 'Transactions', icon: <FaUsers className="mr-3" /> },
+    { name: 'Invoices', icon: <FaUsers className="mr-3" /> },
     { name: 'payments', icon: <FaUsers className="mr-3" /> },
 ]
     return (

@@ -16,7 +16,6 @@ import SendMessage from "./components/SendMessage";
 import Parents from "./admin/Parents";
 import HomePage from "./pages/HomePage";
 import CreateTimetable from "./components/CreateTimetable";
-import InvoiceCreation from "./admin/InvoiceCreation";
 import ParentLayout from "./parent/ParentLayout";
 import ParentDashboard from "./parent/ParentDashboard";
 import Invoice from "./parent/Invoice";
@@ -28,6 +27,8 @@ import Analytics from "./components/Analytics";
 import PaymentForm from "./admin/PaymentForm";
 import InvoiceDetails from "./admin/InvoiceDetails";
 import PaymentDetails from "./admin/PaymentDetails";
+import CustomerBalanceTable from "./admin/CustomerBalanceTable.";
+import InvoiceCreation from "./admin/InvoiceCreation";
 
 
 //backend url
@@ -46,7 +47,8 @@ function App() {
           <Route path="subjects" element={<AddSubject />} />
           <Route path="classes" element={<AddClass />} />
           <Route path="messages" element={<SendMessage />} />
-          <Route path="invoices" element={<InvoiceCreation />} />
+          <Route path="Transactions" element={<CustomerBalanceTable />} />
+          <Route path="Invoices" element={<InvoiceCreation />}/>
           <Route path="payments" element={<PaymentForm />} />
           <Route path="invoices/:id" element={<InvoiceDetails />}/>
           <Route path="payments/:id" element={<PaymentDetails />}/>

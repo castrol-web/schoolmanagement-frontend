@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useStudentStore from '../zustand/useStudentStore';
 import useClassesStore from '../zustand/useClassesStore';
-import CustomerBalanceTable from './CustomerBalanceTable.';
 
 function InvoiceCreation() {
     const formRef = useRef();
@@ -218,7 +217,6 @@ function InvoiceCreation() {
                     {loading ? 'Submitting...' : 'Submit Invoice'}
                 </button>
             </form>
-            <CustomerBalanceTable />
             <ToastContainer />
         </div>
     );
