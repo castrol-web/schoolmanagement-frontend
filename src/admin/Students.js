@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 import { URL } from '../App';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -168,6 +170,31 @@ function Students() {
     }
   }
 
+  const exportToExcel = () => {
+    const exportData = filteredStudents.map((student, index) => {
+      const studentClass = data.find(cls => cls._id === student.currentClass)?.className || 'N/A';
+      return {
+        No: index + 1,
+        FirstName: student.firstName,
+        LastName: student.lastName,
+        MiddleName: student.middleName || '',
+        Class: studentClass,
+        Gender: student.gender || '',
+        Age: student.age || '',
+        RegNo: student.regNo || '',
+        Balance: student.balance || 0,
+      };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Students');
+
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(dataBlob, `students_${new Date().toISOString().split('T')[0]}.xlsx`);
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">
@@ -181,6 +208,12 @@ function Students() {
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
             >
               + Add Student
+            </button>
+            <button
+              onClick={exportToExcel}
+              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
+            >
+              Export to Excel
             </button>
 
             {/* Class Filter Dropdown */}
