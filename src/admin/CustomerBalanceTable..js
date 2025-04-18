@@ -96,7 +96,7 @@ const CustomerBalanceTable = () => {
                                         }`}
                                         onClick={() => fetchTransactions(customer)}
                                     >
-                                        <td className="border p-3">{customer.studentName}</td>
+                                        <td className="border p-3">{customer.firstName} {customer.lastName}</td>
                                         <td className="border p-3">
                                             Tsh {Number(customer.outstandingBalance || 0).toLocaleString()}
                                         </td>
@@ -147,7 +147,7 @@ const CustomerBalanceTable = () => {
                             {selectedCustomerInfo && (
                                 <div className="mb-4 p-4 bg-gray-100 rounded">
                                     <h2 className="text-xl font-bold text-blue-600">
-                                        {selectedCustomerInfo.studentName}
+                                        {selectedCustomerInfo.firstName} {selectedCustomerInfo.lastName}
                                     </h2>
                                     <p className="text-gray-700">
                                         Reg No: <span className="font-medium">{selectedCustomerInfo.regNo}</span>
