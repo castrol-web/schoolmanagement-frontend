@@ -53,8 +53,8 @@ const InvoiceDetails = () => {
         <p><strong>Class:</strong> {invoice.classId || "N/A"}</p>
         <p><strong>Year:</strong> {invoice.year}</p>
         <p><strong>Term:</strong> {invoice.term}</p>
-        <p><strong>Total Fees:</strong> ${invoice.totalFees.toFixed(2)}</p>
-        <p><strong>Outstanding Balance:</strong> ${invoice.outstandingBalance.toFixed(2)}</p>
+        <p><strong>Total Fees:</strong> Tsh{invoice.totalFees.toFixed(2)}</p>
+        <p><strong>Outstanding Balance:</strong> Tsh{invoice.outstandingBalance.toFixed(2)}</p>
         <p><strong>Status:</strong> {invoice.status}</p>
         <p><strong>Issued Date:</strong> {new Date(invoice.issuedDate).toLocaleDateString()}</p>
       </div>
@@ -64,7 +64,7 @@ const InvoiceDetails = () => {
         <ul className="list-disc pl-5 space-y-1">
           {invoice.items.map((item, index) => (
             <li key={index}>
-              {item.name} - <span className="text-blue-600 font-semibold">${item.amount.toFixed(2)}</span>
+              {item.name} - <span className="text-blue-600 font-semibold">Tsh{item.amount.toFixed(2)}</span>
             </li>
           ))}
         </ul>
