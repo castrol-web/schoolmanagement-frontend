@@ -65,7 +65,8 @@ const InvoiceDetails = () => {
         <ul className="list-disc pl-5 space-y-1">
           {invoice.items.map((item, index) => (
             <li key={index}>
-              {item.name} - <span className="text-blue-600 font-semibold">Tsh{item.amount.toFixed(2)}</span>
+           <p>Desc:<span className="text-blue-600 font-semibold">{item.description}||"N/A"</span></p> 
+              <span className="text-blue-600 font-semibold">Tsh{item.amount.toFixed(2)}</span>
             </li>
           ))}
         </ul>
